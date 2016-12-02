@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chuck</title>
+    <description>Chuck's blog,use Jekyll and github pages.</description>
+    <link>http://localhost:4000//</link>
+    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 02 Dec 2016 15:33:56 +0800</pubDate>
+    <lastBuildDate>Fri, 02 Dec 2016 15:33:56 +0800</lastBuildDate>
+    <generator>Jekyll v3.3.1</generator>
+    
+      <item>
+        <title>如何快速正确的安装 Ruby, Rails 运行环境</title>
+        <description>&lt;p&gt;对于新入门的开发者，如何安装 Ruby, Ruby Gems 和 Rails 的运行环境可能会是个问题，本页主要介绍如何用一条靠谱的路子快速安装 Ruby 开发环境。&lt;/p&gt;
+
+&lt;p&gt;此安装方法同样适用于产品环境！&lt;/p&gt;
+
+&lt;h1 id=&quot;系统需求&quot;&gt;系统需求&lt;/h1&gt;
+
+&lt;p&gt;首先确定操作系统环境，不建议在 Windows 上面搞，所以你需要用:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mac OS X&lt;/li&gt;
+  &lt;li&gt;任意 Linux 发行版本(Ubuntu,CentOS, Redhat, ArchLinux …)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;强烈新手使用 Ubuntu 省掉不必要的麻烦！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;以下代码区域，带有 $ 打头的表示需要在控制台（终端）下面执行（不包括 $ 符号）&lt;/p&gt;
+
+&lt;h2 id=&quot;步骤0--安装系统需要的包&quot;&gt;步骤0 － 安装系统需要的包&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# For Mac&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 先安装 [Xcode](http://developer.apple.com/xcode/) 开发工具，它将帮你安装好 Unix 环境需要的开发包&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 然后安装 [Homebrew](http://brew.sh)&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ruby -e &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;OS X 安装 Rails 必要的一些三方库&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;brew install libxml2 libxslt libiconv
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;步骤1--安装-rvm&quot;&gt;步骤1 － 安装 RVM&lt;/h2&gt;
+
+&lt;p&gt;RVM 是干什么的这里就不解释了，后面你将会慢慢搞明白。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;curl -sSL https://get.rvm.io | bash -s stable
+&lt;span class=&quot;c&quot;&gt;# 如果上面的连接失败，可以尝试:&lt;/span&gt;
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;curl -L https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer | bash -s stable
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;期间可能会问你 sudo 管理员密码，以及自动通过 Homebrew 安装依赖包，等待一段时间后就可以成功安装好 RVM。&lt;/p&gt;
+
+&lt;p&gt;然后，载入 RVM 环境（新开 Termal 就不用这么做了，会自动重新载入的）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.rvm/scripts/rvm
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;修改 RVM 下载 Ruby 的源，到 Ruby China 的镜像:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ruby_url=https://cache.ruby-china.org/pub/ruby&quot;&lt;/span&gt; &amp;gt; ~/.rvm/user/db
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;检查一下是否安装正确&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rvm -v
+rvm 1.22.17 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;stable&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; by Wayne E. Seguin &amp;lt;wayneeseguin@gmail.com&amp;gt;, Michal Papis &amp;lt;mpapis@gmail.com&amp;gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;https://rvm.io/]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;检查一下是否安装正确&lt;/p&gt;
+
+&lt;h2 id=&quot;步骤2--用-rvm-安装-ruby-环境&quot;&gt;步骤2 － 用 RVM 安装 Ruby 环境&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rvm requirements
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rvm install 2.3.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;同样继续等待漫长的下载，编译过程，完成以后，Ruby, Ruby Gems 就安装好了。&lt;/p&gt;
+
+&lt;h2 id=&quot;步骤3--设置-ruby-版本&quot;&gt;步骤3 － 设置 Ruby 版本&lt;/h2&gt;
+
+&lt;p&gt;RVM 装好以后，需要执行下面的命令将指定版本的 Ruby 设置为系统默认版本&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rvm use 2.3.0 --default
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;同样，也可以用其他版本号，前提是你有用 rvm install 安装过那个版本&lt;/p&gt;
+
+&lt;p&gt;这个时候你可以测试是否正确&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;ruby -v
+ruby 2.3.0 ...
+
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem -v
+2.1.6
+
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;安装 Bundler&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install bundler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;步骤4--安装-rails-环境&quot;&gt;步骤4 － 安装 Rails 环境&lt;/h2&gt;
+
+&lt;p&gt;上面 3 个步骤过后，Ruby 环境就安装好了，接下来安装 Rails&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;gem install rails
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后测试安装是否正确&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;rails -v
+Rails 4.2.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后开始你的 Ruby，Rails 之旅吧。
+欢迎来到 Ruby 的世界！&lt;/p&gt;
+</description>
+        <pubDate>Sun, 27 Nov 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000//java/2016/11/27/install-ruby-rvm-rails.html</link>
+        <guid isPermaLink="true">http://localhost:4000//java/2016/11/27/install-ruby-rvm-rails.html</guid>
+        
+        <category>ruby</category>
+        
+        <category>rails</category>
+        
+        
+        <category>Java</category>
+        
+      </item>
+    
+      <item>
+        <title>我的第一篇博客</title>
+        <description>&lt;p&gt;喜欢写Blog的人，会经历三个阶段。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。
+第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。
+第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;转自&lt;a href=&quot;http://www.ruanyifeng.com/&quot;&gt;阮一峰&lt;/a&gt;的博文。&lt;/p&gt;
+
+&lt;p&gt;从第一份运维工作开始，就开始写笔记，有用过印象笔记，有道云笔记，gist，后来也开始写博客，那时候是在CSDN上面注册了一个账号，写了有几个月见见的也荒废了；再后来，想自己搞个云主机，在&lt;a href=&quot;http://aliyun.com&quot;&gt;阿里云&lt;/a&gt;上租了一台主机，一个月￥60，先是用wordpress，感觉可定制功能不强，因为是PHP写的，个人主要学习Python，所以感觉自己用Django写了一个博客，在15年双十一，云主机降价，花了一半的价钱（￥200）在美团云上买了一台1C、1G、1MB带宽的主机，至此也了解了阿里云和美团云的一些不同之处，美团云主打的是纯净的系统，而阿里云应用市场比较丰富。现在准备把自己的博客迁移到&lt;a href=&quot;http://github.com&quot;&gt;github&lt;/a&gt;上，在学习了markdown入门和jekyll基础后，目前博客已经初步成立，同时完善了我的一些文章，希望今后能够勤写文章。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 08 Jan 2015 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000//android/2015/01/08/first-blog.html</link>
+        <guid isPermaLink="true">http://localhost:4000//android/2015/01/08/first-blog.html</guid>
+        
+        <category>blog</category>
+        
+        
+        <category>Android</category>
+        
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+
+	
+		<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta content="Chuck's blog,use Jekyll and github pages." name="description">
+  <meta name="keywords" content="Chuck,blog,Jekyll,github,gh-pages">
+  <meta name="author" content="Chuck">
+  <title>Chuck</title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+  <!-- Third-party CSS -->
+  <link href="/bower_components/normalize-css/normalize.min.css" rel="stylesheet">
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/font-mfizz/font-mfizz.css" rel="stylesheet">
+  <!-- <link href="/bower_components/toastr/toastr.min.css" rel="stylesheet"> -->
+  <link href="/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <!-- <link href="/static/css/pygments.css" rel="stylesheet"> -->
+  <link href="/static/css/style.min.css" rel="stylesheet">
+
+  <!-- Third-party scripts -->
+  <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/i18next/i18next.min.js"></script>
+  <script src="/bower_components/PACE/pace.min.js"></script>
+  <script src="/bower_components/wow/dist/wow.min.js"></script>
+
+  <!-- Custom and plugin javascript -->
+  <!-- <script src="/static/js/inspinia.js"></script> -->
+
+<!-- GrowingIO -->
+
+
+</head>
+
+	
+
+
+<body id="page-top" class="landing-page">
+
+	
+
+        <div class="navbar-wrapper">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top" id="i18_title"><span data-i18n="website.title">Chuck</span></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right" id="i18_navbar">
+                
+                    <li>
+                      <a class="page-scroll" href="#about-me">
+                        <span data-i18n="nav.about_me">About</span>
+                      </a>
+                    </li>
+                
+                    <li>
+                      <a class="page-scroll" href="#blog">
+                        <span data-i18n="nav.blog">Blog</span>
+                      </a>
+                    </li>
+                
+                    <li>
+                      <a class="page-scroll" href="#career">
+                        <span data-i18n="nav.career">Career</span>
+                      </a>
+                    </li>
+                
+                    <li>
+                      <a class="page-scroll" href="#links">
+                        <span data-i18n="nav.link">Links</span>
+                      </a>
+                    </li>
+                
+
+                
+                  <li>
+                    <a id="set_lang_en" class="btn btn-sm set_en" data-locale="en">
+                      <img src="/static/img/flags/United-States.png" height="16px" width="16px">
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a id="set_lang_zh" class="btn btn-sm set_zh" data-locale="zh">
+                      <img src="/static/img/flags/China.png" height="16px" width="16px">
+                    </a>
+                  </li>
+                
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                </div>
+                <div class="carousel-image wow zoomIn">
+                    <!-- <img src="static/img/landing/laptop.png" alt="laptop"/> -->
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back two"></div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+  
+  <section id="about-me" class="features  " style="margin-top: 0px;">
+    <div class="container" id="i18_about_me">
+    <div class="row m-b-lg">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1><span data-i18n="about_me.about_me">About Me</span></h1>
+            <!-- <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p> -->
+        </div>
+    </div>
+    <div class="row">
+        <!-- python -->
+        <div class="col-xs-2 wow fadeInLeft">
+            <div class="team-member">
+                <div class="vote-icon">
+                    <i class="icon-python"></i>
+                </div>
+            </div>
+        </div>
+        <!-- linux -->
+        <div class="col-xs-2 wow fadeInLeft">
+            <div class="team-member">
+                <div class="vote-icon">
+                    <i class="icon-shell"></i>
+                </div>
+            </div>
+        </div>
+        <!-- avatar -->
+        <div class="col-xs-4">
+            <div class="team-member wow zoomIn">
+                <img src="/static/img/landing/icon.jpg" height="110" width="110" class="img-responsive img-circle" alt="">
+                <h4><span class="navy">kai</span> chen</h4>
+                <ul class="list-inline social-icon">
+                    <li><a href="https://github.com/hgchenkai" target="blank"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li><a href="https://www.facebook.com/chucklw" target="blank"><i class="fa fa-facebook"></i></a>
+                    <li><a href="mailto:hgchenkai437@gmail.com"><i class="fa fa-envelope-o"></i></a>
+                    </li>
+                    </li>
+                    <li><a href="http://localhost:4000/feed.xml" target="blank"><i class="fa fa-rss"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- html -->
+        <div class="col-xs-2 wow fadeInRight">
+            <div class="team-member">
+                <div class="vote-icon">
+                    <i class="icon-angular"></i>
+                </div>
+            </div>
+        </div>
+        <!-- docker -->
+        <div class="col-xs-2 wow fadeInRight">
+            <div class="team-member">
+                <div class="vote-icon">
+                    <i class="icon-docker"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg wow zoomIn">
+            <p><span data-i18n="about_me.des">I am an Android developer,and I am  eager to learn new  challenging knowledge.Hoping to communicate and share  good ideas with each other.</span></p>
+        </div>
+    </div>
+</div>
+
+  </section>
+
+  
+  <section id="blog" class="features  gray-section  testimonials navy-section" style="margin-top: 0px;">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center wow zoomIn" id="i18_blog">
+            <div style="height: 80px;"></div>
+            <a class="btn btn-lg btn-default btn-rounded btn-outline wow bounceIn" href="/blog/"><span data-i18n="blog.my_blog">My Blog</span></a>
+            <div style="height: 80px;"></div>
+        </div>
+    </div>
+</div>
+
+  </section>
+
+  
+  <section id="career" class="features  timeline" style="margin-top: 0px;">
+    <div class="container" id="i18_career">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1><span data-i18n="career.my_career">My Career</span></h1>
+        </div>
+    </div>
+    <div class="row features-block">
+        <div class="col-lg-12">
+            <div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
+            
+            
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                        <i class="fa fa-plus-square"></i>
+                    </div>
+                    <div class="vertical-timeline-content wow  rotateInUpRight ">
+                        <h2><span data-i18n="career.hivebox">HiveBox</span></h2>
+                        <p><span data-i18n="career.hivebox_des">Now I am in Nextcode and develop website with Python code for genetic analysis. </span></p>
+                        <span class="vertical-date"><span data-i18n="career.hivebox_date"> Mar. 2016 </span>
+                        <br/> <small><span data-i18n="career.hivebox_job">Python Developer</span></small> </span>
+                    </div>
+                </div>
+            
+            
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                        <i class="fa fa-gamepad"></i>
+                    </div>
+                    <div class="vertical-timeline-content wow  rotateInUpLeft ">
+                        <h2><span data-i18n="career.OkWei">OkWei</span></h2>
+                        <p><span data-i18n="career.OkWei_des">In Netease game, I learned game service system and use Python code for ops. </span></p>
+                        <span class="vertical-date"><span data-i18n="career.OkWei_date"> Jun. 2015 </span>
+                        <br/> <small><span data-i18n="career.OkWei_job">Dev Ops</span></small> </span>
+                    </div>
+                </div>
+            
+            
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                        <i class="fa fa-cloud"></i>
+                    </div>
+                    <div class="vertical-timeline-content wow  rotateInUpRight ">
+                        <h2><span data-i18n="career.CSII">Client Server International, Inc. U.S.A.</span></h2>
+                        <p><span data-i18n="career.CSII_des">In CSII, I started working with Android development. </span></p>
+                        <span class="vertical-date"><span data-i18n="career.CSII_date"> Sep. 2014 </span>
+                        <br/> <small><span data-i18n="career.CSII_job">Dev Ops</span></small> </span>
+                    </div>
+                </div>
+            
+            
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg wow rotateIn">
+                        <i class="fa fa-book"></i>
+                    </div>
+                    <div class="vertical-timeline-content wow  rotateInUpLeft ">
+                        <h2><span data-i18n="career.college">Graduation</span></h2>
+                        <p><span data-i18n="career.college_des">At July 2014,I graduated from college and started my IT technology tour. </span></p>
+                        <span class="vertical-date"><span data-i18n="career.college_date"> Jul. 2014 </span>
+                        <br/> <small><span data-i18n="career.college_job">Student</span></small> </span>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+  </section>
+
+  
+  <section id="links" class="features  gray-section  contact" style="margin-top: 0px;">
+    <div class="container" id="i18_link">
+    <div class="row m-b-lg">
+        <div class="col-lg-12 text-center">
+            <div class="navy-line"></div>
+            <h1><span data-i18n="link.link">Link</span></h1>
+        </div>
+    </div>
+    <div class="row">
+    
+        
+        
+        <div class="col-sm-4 wow  fadeInLeft ">
+        
+        <div class="team-member">
+            <h4><span class="navy">Nianbing</span> Wang</h4>
+            <p>Image Processing and Pattern Recognition Engineer.</p>
+            <ul class="list-inline social-icon">
+                <li><a href="http://blog.csdn.net/wangnianbing" target="blank"><i class="fa fa-link"></i></a>
+                </li>
+                <li><a href="mailto:290380038@qq.com"><i class="fa fa-envelope-o"></i></a>
+                </li>
+            </ul>
+        </div>
+        </div>
+    
+        
+        
+            
+        <div class="col-sm-4 wow  col-sm-offset-4 fadeInRight ">
+            
+        
+        <div class="team-member">
+            <h4><span class="navy">Kai</span> Chen</h4>
+            <p>Android Developer.</p>
+            <ul class="list-inline social-icon">
+                <li><a href="http://blog.csdn.net/chenkai19920410" target="blank"><i class="fa fa-link"></i></a>
+                </li>
+                <li><a href="mailto:hgchenkai437@gmail.com"><i class="fa fa-envelope-o"></i></a>
+                </li>
+            </ul>
+        </div>
+        </div>
+    
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+            <p id="jalpc_site_pv"><strong>&copy; 2016 Chuck</strong></p>
+        </div>
+    </div>
+</div>
+
+  </section>
+
+<iframe src="http://www.maimemo.com/share/page/?uid=779139&pid=660" style="display: none;"></iframe>
+
+
+
+	
+		<script src="/static/js/scroll.js"></script>
+<script src="/static/js/localization.js"></script>
+<script async src="/static/js/count.min.js"></script>
+
+<!-- Baidu analytics -->
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?5452f458cd7817ced78b5c6daa1a82e4";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+<!-- Google analytics -->
+
+
+	
+
+</body>
+</html>

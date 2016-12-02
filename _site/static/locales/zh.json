@@ -1,0 +1,55 @@
+{
+  "website":{
+    "title": "Chuck的博客"
+  },
+  "nav":{
+    "home": "首页",
+    "about_me": "关于我",
+    "skills": "技能",
+    "projects": "项目",
+    "career": "职业",
+    "blog": "博客",
+    "link": "友情链接"
+  },
+  "about_me":{
+    "about_me": "关于我",
+    "des": "我是一名Android开发工程师，很渴望学习新的有挑战的知识，希望能和各位相互分享相互交流"
+  },
+  "skills":{
+    "my_skills": "我的技能"
+  },
+  "projects":{
+    "my_projects": "我的项目",
+    "saplatform": "Saplatform是一个自动化运维服务，包括资产管理、项目发布、数据库管理等功能,它可以管理大量服务器。",
+    "jalpc": "Jalpc是一个非常简洁、漂亮和快速部署的Jekyll主题，它有非常全面的功能，可以很方便的修改和使用，适应多种设备。",
+    "angularjs": "这是一个Angularjs写的前端应用，使用Jelyll部署在github的gh-pages上，后台使用Leancloud，你也可以使用Parse。",
+    "rsser": "Rsser是一个Ionic应用，在这个应用下，我们可以自由的阅读新闻和文章，你可以从给定的列表中添加rss地址也可以手动添加。"
+  },
+  "career":{
+    "my_career": "职业生涯",
+    "hivebox": "丰巢科技",
+    "hivebox_des": "现在我在丰巢科技.",
+    "hivebox_date": "2016年3月",
+    "hivebox_job": "Android工程师",
+    "OkWei": "云商微店",
+    "OkWei_des": "在云商微店，主要从事商城APP的开发",
+    "OkWei_date": "2015年3月",
+    "OkWei_job": "Android开发工程师",
+    "CSII": "Client Server International, Inc. U.S.A.",
+    "CSII_des": "在CSII,我开始从事Android开发.",
+    "CSII_date": "2014年9月",
+    "CSII_job": "Android开发工程师",
+    "college": "毕业",
+    "college_des": "2014年7月大学毕业，开始了IT职业生涯",
+    "college_date": "2014年7月",
+    "college_job": "学生"
+  },
+  "blog":{
+    "my_blog": "我的博客"
+  },
+  "link":{
+    "link": "友情链接",
+    "view": "次访问"
+  }
+
+}

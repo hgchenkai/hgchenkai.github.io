@@ -1,0 +1,24 @@
+- name: Blog
+  href: '/blog/'
+
+- name: Android
+  href: '/android/'
+
+- name: Java
+  href: '/java/'
+    
+#- name: Python
+#  href: '/python/'
+
+#- name: Linux
+#  href: '/linux/'
+
+#- name: HTML
+#  href: '/html/'
+
+- name: Mac
+  href: '/mac/'
+
+#- name: Life
+#  href: '/life/'
+

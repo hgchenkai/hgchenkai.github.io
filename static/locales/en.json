@@ -1,0 +1,55 @@
+{
+  "website":{
+    "title": "Chuck's blog"
+  },
+  "nav":{
+    "home": "Home",
+    "about_me": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "career": "Career",
+    "blog": "Blog",
+    "link": "Link"
+  },
+  "about_me":{
+    "about_me": "About Me",
+    "des": "I am an Android developer,and I am  eager to learn new  challenging knowledge.Hoping to communicate and share  good ideas with each other."
+  },
+  "skills":{
+    "my_skills": "My Skills"
+  },
+  "projects":{
+    "my_projects": "My Projects",
+    "saplatform": "Saplatform is a automated service for operations, it has asset management, project release, database access function, it can control mass servers.",
+    "jalpc": "Jalpc is a simple, beautiful and swift theme for Jekyll. It has comprehensive function, it can be easily used and edited. It's adapted for many kinds devices.",
+    "angularjs": "It is a web font application written by Angularjs and deployed by Jekyll on github (gh-pages), the backend platform is Leancloud, you can use Parse as well.",
+    "rsser": "Rsser is an Ionic application, with this application we can read news and articles freely, you can add rss address from the given list and add it manually."
+  },
+  "career":{
+    "my_career": "My Career",
+    "hivebox": "HiveBox",
+    "hivebox_des": "Now I am in HiveBox",
+    "hivebox_date": "Mar. 2016",
+    "hivebox_job": "Android",
+    "OkWei": "OkWei",
+    "OkWei_des": "In OkWei, I mainly engaged in mall APP development.",
+    "OkWei_date": "Mar. 2015",
+    "OkWei_job": "Android",
+    "CSII": "Client Server International, Inc. U.S.A.",
+    "CSII_des": "In CSII, I started working with Android development.",
+    "CSII_date": "Sep. 2014",
+    "CSII_job": "Android dev",
+    "college": "Graduation",
+    "college_des": "At July 2014,I graduated from college and started my IT technology tour.",
+    "college_date": "Jul. 2014",
+    "college_job": "Student"
+  },
+  "blog":{
+    "my_blog": "My Blog"
+  },
+  "link":{
+    "link": "Link",
+    "view": "views"
+  }
+
+}
