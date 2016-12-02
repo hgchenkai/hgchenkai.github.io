@@ -7,16 +7,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-    <meta content="我的第一篇jekyll博客" name="description">
+    <meta content=" TextView 去掉自适应默认的fontpadding" name="description">
   
   
-    <meta name="keywords" content="jekyll,blog,first">
+    <meta name="keywords" content="textview,padding">
   
   <meta name="author" content="Chuck">
 
   <title>
     
-        Chuck|我的第一篇博客
+        Chuck|TextView 去掉自适应默认的fontpadding
     
   </title>
   <!-- favicon -->
@@ -198,29 +198,38 @@
                         
                     </div>
                     <div class="text-center article-title">
-                    <span class="text-muted"><i class="fa fa-clock-o"></i> 8 Jan 2015</span>
+                    <span class="text-muted"><i class="fa fa-clock-o"></i> 2 Dec 2016</span>
                         <h1>
-                            我的第一篇博客
+                            TextView 去掉自适应默认的fontpadding
                         </h1>
                     </div>
-                    	<p>喜欢写Blog的人，会经历三个阶段。</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。
-第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。
-第三阶段，觉得独立博客的管理太麻烦，最好在保留控制权的前提下，让别人来管，自己只负责写文章。
+                    	<p>  最近在项目中使用textview时发现在使用android:layout_height=”wrap_content”这个属性设置后，textview会有默认的padding，也就是fontpadding。这样就会造成textview和其他view中间的间距会比自己的设置的大。那么我们怎么来remove掉这个间距呢？<br />
+　　第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。<br />
+　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
+　　</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>FontMetricsInt fontMetricsInt;
+@Override
+protected void onDraw(Canvas canvas) {
+    if (adjustTopForAscent){//设置是否remove间距，true为remove
+        if (fontMetricsInt == null){
+            fontMetricsInt = new FontMetricsInt();
+            getPaint().getFontMetricsInt(fontMetricsInt);
+        }
+        canvas.translate(0, fontMetricsInt.top - fontMetricsInt.ascent);
+    }
+    super.onDraw(canvas);
+}
 </code></pre>
 </div>
 
-<p>转自<a href="http://www.ruanyifeng.com/">阮一峰</a>的博文。</p>
-
-<p>从第一份运维工作开始，就开始写笔记，有用过印象笔记，有道云笔记，gist，后来也开始写博客，那时候是在CSDN上面注册了一个账号，写了有几个月见见的也荒废了；再后来，想自己搞个云主机，在<a href="http://aliyun.com">阿里云</a>上租了一台主机，一个月￥60，先是用wordpress，感觉可定制功能不强，因为是PHP写的，个人主要学习Python，所以感觉自己用Django写了一个博客，在15年双十一，云主机降价，花了一半的价钱（￥200）在美团云上买了一台1C、1G、1MB带宽的主机，至此也了解了阿里云和美团云的一些不同之处，美团云主打的是纯净的系统，而阿里云应用市场比较丰富。现在准备把自己的博客迁移到<a href="http://github.com">github</a>上，在学习了markdown入门和jekyll基础后，目前博客已经初步成立，同时完善了我的一些文章，希望今后能够勤写文章。</p>
+<p>  第二种方法一般能达到目的，如果还是不能的话，那只能使用marginTop等于负值来实现了，不过不推荐这种方法。</p>
 
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
                                 <h5 style="display: inline;">Tags:</h5>
                                 
-                                    <button class="btn btn-white btn-xs" type="button">blog</button>
+                                    <button class="btn btn-white btn-xs" type="button">TextView</button>
                                 
                         </div>
                         <div class="col-md-6">
