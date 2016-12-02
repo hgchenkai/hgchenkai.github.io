@@ -14,6 +14,7 @@ icon: fa-bookmark-o
  第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。
  第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
 
+
  ```
   FontMetricsInt fontMetricsInt;
     @Override
@@ -28,4 +29,6 @@ icon: fa-bookmark-o
         super.onDraw(canvas);
     }
  ```
+ 
+ 
  第二种方法一般能达到目的，如果还是不能的话，那只能使用marginTop等于负值来实现了，不过不推荐这种方法。
