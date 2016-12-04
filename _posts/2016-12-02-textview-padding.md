@@ -27,3 +27,8 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 &emsp;&emsp;第二种方法一般能达到目的，如果还是不能的话，那只能使用marginTop等于负值来实现了，不过不推荐这种方法。
+``` javascript
+if (foo) bar();else baz(); ==> foo? bar(): baz();
+if (!foo) bar();else baz(); ==> foo? baz(): bar();
+if (foo) return bar();else return baz(); ==> return foo? bar(): baz();
+```
