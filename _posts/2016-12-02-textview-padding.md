@@ -12,7 +12,7 @@ icon: fa-bookmark-o
 　　第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。  
 　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
 　　
-```
+```java
 FontMetricsInt fontMetricsInt;
 @Override
 protected void onDraw(Canvas canvas) {
