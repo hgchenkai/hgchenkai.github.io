@@ -12,8 +12,7 @@ icon: fa-bookmark-o
 　　第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。  
 　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
 　　
-``` java
-FontMetricsInt fontMetricsInt;
+    FontMetricsInt fontMetricsInt;
 @Override
 protected void onDraw(Canvas canvas) {
     if (adjustTopForAscent){//设置是否remove间距，true为remove
@@ -25,10 +24,5 @@ protected void onDraw(Canvas canvas) {
     }
     super.onDraw(canvas);
 }
-```
 &emsp;&emsp;第二种方法一般能达到目的，如果还是不能的话，那只能使用marginTop等于负值来实现了，不过不推荐这种方法。
-``` javascript
-if (foo) bar();else baz(); ==> foo? bar(): baz();
-if (!foo) bar();else baz(); ==> foo? baz(): bar();
-if (foo) return bar();else return baz(); ==> return foo? bar(): baz();
-```
+
