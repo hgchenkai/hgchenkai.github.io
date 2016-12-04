@@ -5,16 +5,16 @@
     <description>Chuck's blog,use Jekyll and github pages.</description>
     <link>http://localhost:4000//</link>
     <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 04 Dec 2016 17:11:40 +0800</pubDate>
-    <lastBuildDate>Sun, 04 Dec 2016 17:11:40 +0800</lastBuildDate>
+    <pubDate>Sun, 04 Dec 2016 18:14:06 +0800</pubDate>
+    <lastBuildDate>Sun, 04 Dec 2016 18:14:06 +0800</lastBuildDate>
     <generator>Jekyll v3.3.1</generator>
     
       <item>
         <title>TextView 去掉自适应默认的fontpadding</title>
         <description>&lt;p&gt;  最近在项目中使用textview时发现在使用android:layout_height=”wrap_content”这个属性设置后，textview会有默认的padding，也就是fontpadding。这样就会造成textview和其他view中间的间距会比自己的设置的大。那么我们怎么来remove掉这个间距呢？&lt;br /&gt;
 　　第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。&lt;br /&gt;
-　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
-　　&lt;/p&gt;
+　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。&lt;/p&gt;
+
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;FontMetricsInt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontMetricsInt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onDraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Canvas&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -29,8 +29,8 @@
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-
 &lt;p&gt;  第二种方法一般能达到目的，如果还是不能的话，那只能使用marginTop等于负值来实现了，不过不推荐这种方法。&lt;/p&gt;
+
 </description>
         <pubDate>Fri, 02 Dec 2016 00:00:00 +0800</pubDate>
         <link>http://localhost:4000//android/2016/12/02/textview-padding.html</link>
