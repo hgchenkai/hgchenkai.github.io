@@ -207,18 +207,18 @@
 　　第一、先试试设置includefontpadding=false ，如果不能达到目的的话，可以按照第二种方法。<br />
 　　第二、实现自定义TextView，只需继承自TextView然后重写onDraw方法就可以了。
 　　</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>FontMetricsInt fontMetricsInt;
-@Override
-protected void onDraw(Canvas canvas) {
-    if (adjustTopForAscent){//设置是否remove间距，true为remove
-        if (fontMetricsInt == null){
-            fontMetricsInt = new FontMetricsInt();
-            getPaint().getFontMetricsInt(fontMetricsInt);
-        }
-        canvas.translate(0, fontMetricsInt.top - fontMetricsInt.ascent);
-    }
-    super.onDraw(canvas);
-}
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">FontMetricsInt</span> <span class="n">fontMetricsInt</span><span class="o">;</span>
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onDraw</span><span class="o">(</span><span class="n">Canvas</span> <span class="n">canvas</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">adjustTopForAscent</span><span class="o">){</span><span class="c1">//设置是否remove间距，true为remove</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">fontMetricsInt</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+            <span class="n">fontMetricsInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FontMetricsInt</span><span class="o">();</span>
+            <span class="n">getPaint</span><span class="o">().</span><span class="na">getFontMetricsInt</span><span class="o">(</span><span class="n">fontMetricsInt</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">canvas</span><span class="o">.</span><span class="na">translate</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">fontMetricsInt</span><span class="o">.</span><span class="na">top</span> <span class="o">-</span> <span class="n">fontMetricsInt</span><span class="o">.</span><span class="na">ascent</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onDraw</span><span class="o">(</span><span class="n">canvas</span><span class="o">);</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 
