@@ -75,13 +75,10 @@ donate:
   alipay: 'static/img/pay/alipay.png'
 
 # comment
-changyan:
-  # appid: chuck
-  # conf:
 disqus:
 #  name: chuck
 #  public_key: 
-
+duoshuo:
 # share
 bshare:
   uuid: 3388a8e1-75a8-4d5f-9b83-552bfba42fd1
@@ -106,4 +103,4 @@ highlighter: rouge
 markdown: kramdown
 kramdown:
   input: GFM
-  syntax_highlighter: rouge
+ 
