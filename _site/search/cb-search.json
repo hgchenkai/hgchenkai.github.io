@@ -3,6 +3,14 @@
 	"data" : [
 	 
 	{
+		"title" : "Macbook Pro下载并编译Android源码并导入Android Studio - 2016-12-13",
+		"url" : "/mac/2016/12/13/mac-aosp.html"
+	}
+	
+	,
+	
+    
+	{
 		"title" : "TextView 去掉自适应默认的fontpadding - 2016-12-02",
 		"url" : "/android/2016/12/02/textview-padding.html"
 	}
