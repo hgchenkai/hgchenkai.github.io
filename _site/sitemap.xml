@@ -2,6 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
+        <loc>http://localhost:4000/android/2016/12/13/source-code-startservice.html</loc>
+    </url>
+
+    <url>
+        <loc>http://localhost:4000/android/2016/12/13/source-code-startactivity.html</loc>
+    </url>
+
+    <url>
         <loc>http://localhost:4000/java/2016/12/13/rxjava-transforming-observables.html</loc>
     </url>
 
@@ -15,6 +23,10 @@
 
     <url>
         <loc>http://localhost:4000/mac/2016/12/13/mac-aosp.html</loc>
+    </url>
+
+    <url>
+        <loc>http://localhost:4000/android/2016/12/13/binder-aidl.html</loc>
     </url>
 
     <url>
