@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+	
+	    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <meta content="RxJava操作符之Transforming Observables" name="description">
+  
+  
+    <meta name="keywords" content="rxjava">
+  
+  <meta name="author" content="Chuck">
+
+  <title>
+    
+        Chuck|RxJava操作符之Transforming Observables
+    
+  </title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+  <!-- Third-party CSS -->
+  <link href="/bower_components/normalize-css/normalize.min.css" rel="stylesheet">
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/font-mfizz/font-mfizz.css" rel="stylesheet">
+  <!-- <link href="/bower_components/toastr/toastr.min.css" rel="stylesheet"> -->
+  <link href="/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
+  <link rel="stylesheet" href="/search/css/cb-search.css">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/style.min.css" rel="stylesheet">
+  <link href="/static/css/pygments.css" rel="stylesheet">
+
+  <!-- Scripts -->
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/search/js/bootstrap3-typeahead.min.js"></script>
+
+  <!-- cb-search -->
+  <script src="/search/js/cb-search.js"></script>
+  <script>
+    $(function(){
+        $("pre").css('display','block');
+    });
+  </script>
+  <!-- Mainly scripts -->
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+  <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+  <!-- Peity -->
+  <script src="/bower_components/peity/jquery.peity.min.js"></script>
+
+  <script src="/bower_components/PACE/pace.min.js"></script>
+  <script src="/bower_components/wow/dist/wow.min.js"></script>
+  <!-- Custom and plugin javascript -->
+  <script src="/static/js/inspinia.js"></script>
+
+  <!-- Rickshaw -->
+  <script src="/bower_components/rickshaw/vendor/d3.v3.js"></script>
+  <script src="/bower_components/rickshaw/rickshaw.min.js"></script>
+
+
+  <!-- jPages -->
+  <script src="/static/js/jPages.js"></script>
+  <script src="/static/js/js.js"></script>
+  <script id="dsq-count-scr" src="//jalpc.disqus.com/count.js" async></script>
+  <script type="text/javascript">
+        $(function(){
+          /* initiate the plugin */
+          $("div.pag-holder").jPages({
+              containerID  : "pag-itemContainer",
+              perPage      : 5,  /* num of items per page */
+              startPage    : 1,
+              startRange   : 1,
+              midRange     : 3,
+              endRange     : 1
+          });
+      });
+  </script>
+
+<!-- GrowingIO -->
+
+
+</head>
+
+	
+
+
+<body id="page-top" class="landing-page">
+
+	
+	    <div class="search-tool"
+      style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px; opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+    <input type="text" class="form-control search-content" id="search-content" style="position: fixed; top: 60px" placeholder="Search Blog">
+
+    <div style="position: fixed; top: 16px; right: 16px; z-index: 9999;">
+        <img src="/search/img/cb-close.png" id="close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px; z-index: 9999;">
+    <img src="/search/img/cb-search.png"  id="search-btn"  title="Double click Ctrl"/>
+</div>
+
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Chuck</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="page-scroll" href="/blog/"></a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/blog/">Blog</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/android/">Android</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/java/">Java</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/mac/">Mac</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                </div>
+                <div class="carousel-image wow zoomIn">
+                    <!-- <img src="static/img/landing/laptop.png" alt="laptop"/> -->
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back two"></div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+	
+
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pull-right">
+                    	
+                        	<button class="btn btn-white btn-xs" type="button">Java</button>
+                        
+                    </div>
+                    <div class="text-center article-title">
+                    <span class="text-muted"><i class="fa fa-clock-o"></i> 13 Dec 2016</span>
+                        <h1>
+                            RxJava操作符之Transforming Observables
+                        </h1>
+                    </div>
+                    	<p>　在<a href="rxjava-creating-observables.html">RxJava操作符之Creating Observables</a>  我们学会了怎么创建Observable，但是我们项目中往往会遇到很多复杂的情况，需要我们对数据进行过滤和转化，以得到我们想要的结果。这篇文章我们主要是学习怎么转化数据：</p>
+
+<p>　　<strong>Buffer</strong></p>
+
+<p>　　<strong>FlatMap</strong></p>
+
+<p>　　<strong>GroupBy</strong></p>
+
+<p>　　<strong>Map</strong></p>
+
+<p>　　<strong>Scan</strong></p>
+
+<p>　　<strong>Window</strong></p>
+
+<p>　　以上几个操作符就是专门用来处理数据转化功能的，接下来一个一个的来介绍吧。为了使代码看起来优雅一些，本篇开始都将使用lamda表达式。</p>
+
+<p>　　<strong>Buffer</strong></p>
+
+<p>　　Buffer操作符就是将数据依据设置的大小做一下缓存，然后将缓存的数据作为一个集合发射出去。如下图所示，第一张示例图中我们指定buffer的大小为3，收集到3个数据后就发射出去，第二张图中我们加入了一个skip参数用来指定每次发射一个集合需要跳过几个数据，图中如何指定count为2，skip为3，就会每3个数据发射一个包含两个数据的集合，如果count==skip的话，我们就会发现其等效于第一种情况了。</p>
+
+<p>　　<img src="http://img.blog.csdn.net/20160709103302027" width="400" />
+　
+　　<img src="http://img.blog.csdn.net/20160709103347559" width="400" />
+　
+　　在代码中使用也是一目了然的，对第一种情况
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">private</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">});</span>
+    <span class="o">}</span>
+    <span class="n">btn_buffer</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="n">createObservable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">buffer</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">o</span> <span class="o">-&gt;</span> <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"buffer"</span><span class="o">,</span> <span class="n">o</span> <span class="o">+</span> <span class="s">""</span><span class="o">)));</span>
+</code></pre>
+</div>
+<p>　　会得到以下结果：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>buffer: [1, 2,3]
+buffer: [4, 5,6]
+buffer: [7, 8,9]
+buffer: [10]
+</code></pre>
+</div>
+<p>　　第二种情况只需要在buffer操作符多设置一个skip就好了：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">private</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">});</span>
+    <span class="o">}</span>
+    <span class="n">btn_buffer</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="n">createObservable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">buffer</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">o</span> <span class="o">-&gt;</span> <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"buffer"</span><span class="o">,</span> <span class="n">o</span> <span class="o">+</span> <span class="s">""</span><span class="o">)));</span>
+</code></pre>
+</div>
+<p>　　会得到以下结果：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>buffer: [1, 2]
+buffer: [4, 5]
+buffer: [7, 8]
+buffer: [10]
+</code></pre>
+</div>
+<p>　　Buffer操作符就是将数据依据设置的大小做一下缓存，然后将缓存的数据作为一个集合发射出去，Buffer不仅设置数量规则，还可以设置时间：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Observable</span> <span class="nf">bufferTimeObserver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Observable</span><span class="o">.</span><span class="na">interval</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">).</span><span class="na">buffer</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">).</span><span class="na">observeOn</span><span class="o">(</span><span class="n">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">());</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+<p>　　在上次我们讲过Interval根据设置的时间发射一个数据，本例中是每秒发射一个数据，而buffer(3, TimeUnit.SECONDS)，是设置每3秒将缓存的数据发射出去。
+　　
+　　<strong>Map</strong></p>
+
+<p>　　Map操作符会将数据<strong>直接</strong> 进行转换，其和稍后要讲的flatmap功能类似，但又有不同。先看map的原理图：
+　　　&lt;img src=”http://img.blog.csdn.net/20160709110529728” width=400&gt;
+　　从图中可以看出，通过map操作符，设置数据转换规则，将数据直接进行转换。或许下图能更清楚的数目map的作用：
+　　　&lt;img src=”http://img.blog.csdn.net/20160709110711496” width=400&gt;
+　　其用法也是非常简单的，下面我们就来验证一下是否能得到想要的效果：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">private</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">});</span>
+    <span class="o">}</span>
+<span class="n">btn_map</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="n">getObservable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">integer</span> <span class="o">-&gt;</span> <span class="n">integer</span> <span class="o">*</span><span class="mi">10</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">integer1</span> <span class="o">-&gt;</span> <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"map"</span><span class="o">,</span> <span class="n">integer1</span> <span class="o">+</span> <span class="s">""</span><span class="o">)));</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>map: 10
+map: 20
+map: 30
+map: 40
+map: 50
+map: 60
+map: 70
+map: 80
+map: 90
+map: 100
+</code></pre>
+</div>
+<p>　　将所有发出的数据都乘以了10，显然得到了我们想要的数据。下面接着介绍更加强大的flatmap
+　　
+　　<strong>Flatmap</strong>　</p>
+
+<p>　　FlatMap在项目中使用频率很高的操作符，可以将要原数据（我们看做A类型的<strong>Observable</strong>）根据你想要的规则进行转化成B类型<strong>Observable</strong>后再发射出去。其原理就是将这个Observable转化为多个以原Observable发射的数据作为源数据的Observable，然后再将这多个Observable发射的数据整合发射出来，需要注意的是最后的顺序可能会<strong>交错地</strong>发射出来，如果需要顺序输出数据可以使用<strong>concatmap</strong>操作符。FlatMapIterable和FlatMap基相同，不同之处为其转化的多个Observable是使用Iterable作为源数据的。
+　　　
+　　<img src="http://img.blog.csdn.net/20160709111811024" width="400" /></p>
+
+<p>　　现在我们将原数据都加上flatmap字符串怎么实现呢？
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">btn_flatmap</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="n">v</span> <span class="o">-&gt;</span> <span class="n">getObservable</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">flatMap</span><span class="o">(</span><span class="n">integer</span> <span class="o">-&gt;</span> <span class="n">Observable</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="s">"flatMap"</span> <span class="o">+</span> <span class="n">integer</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">s</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"flatmap"</span><span class="o">,</span> <span class="n">s</span><span class="o">);</span>
+                <span class="o">}));</span>
+                 <span class="kd">private</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">getObservable</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Observable</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">});</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+<p>　　注意和map操作符的区别，flatmap是需要将原始Observable转换成目标Observable的，而map直接转化数据
+　　以下是程序运行的结果：
+　　</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>flatmap: flatMap1
+flatmap: flatMap2
+flatmap: flatMap3
+flatmap: flatMap4
+flatmap: flatMap5
+flatmap: flatMap6
+flatmap: flatMap7
+flatmap: flatMap8
+flatmap: flatMap9
+flatmap: flatMap10
+</code></pre>
+</div>
+<p>　　flatmap是需要好好掌握的，是一个功能强大的操作符。
+　　
+　　<strong>GroupBy</strong></p>
+
+<p>　　  GroupBy操作符将原始Observable发射的数据按照设置的key来拆分成一些小的Observable，然后这些小的Observable分别发射其所包含的的数据，类似数据库查询时groupBy。在使用中，我们需要提供一个生成key的规则，所有key相同的数据会分到同一个小的Observable中。</p>
+
+<p>　　  　<img src="http://img.blog.csdn.net/20160709112759951" width="400" />
+　
+　　  我们使用GroupBy把数据分成奇数和偶数，并且输出偶数：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> btn_groupby.setOnClickListener(v -&gt; getObservable()
+                .groupBy(integer -&gt; integer % 2 == 0)
+                .subscribe(booleanIntegerGroupedObservable -&gt; {
+                    if (booleanIntegerGroupedObservable.getKey()) {
+                        booleanIntegerGroupedObservable.subscribe(integer -&gt; Log.e("groupby"
+                                , integer + ""));
+                    }
+
+                }));
+                private Observable&lt;Integer&gt; getObservable() {
+        return Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    }
+</code></pre>
+</div>
+<p>　　运行结果如下，很明显得到了想要的结果：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>groupby: 2
+groupby: 4
+groupby: 6
+groupby: 8
+groupby: 10
+</code></pre>
+</div>
+<p>　　<strong>Scan</strong></p>
+
+<p>　　Scan操作符对一个序列的数据如{1，2，3，4}应用一个函数a*b，并将这个函数的结果1+2=3发射出去作为下个数据3应用这个函数时候的第一个参数使用,也就是3+3=6，有点类似于递归操作。通过scan我们可以很容易的实现斐波拉契数列。</p>
+
+<p>　　　<img src="http://img.blog.csdn.net/20160709114415582" width="400" />
+　
+　　　<img src="http://img.blog.csdn.net/20160709114441640" width="400" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>btn_scan.setOnClickListener(v -&gt; getObservable()
+                .scan((integer, integer2) -&gt; integer +integer2)
+                .subscribe(integer1 -&gt; Log.e("scan", "" + integer1)));
+                private Observable&lt;Integer&gt; getObservable() {
+        return Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    }
+</code></pre>
+</div>
+<p>　　运行结果如下，</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>scan: 1
+scan: 3
+scan: 6
+scan: 10
+scan: 15
+scan: 21
+scan: 28
+scan: 36
+scan: 45
+scan: 55
+</code></pre>
+</div>
+<p>　　<strong>Window</strong></p>
+
+<p>　　Window操作符功能和我们前面讲过的buffer类似，不同之处在于Window发射的是一些小的Observable对象，由这些小的Observable对象来发射内部包含的数据。同buffer一样，window不仅可以通过数目来分组还可以通过时间等规则来分组</p>
+
+<p>　　　<img src="http://img.blog.csdn.net/20160709115416024" width="400" />
+　　
+　　我们将{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}分成两个Observable每个包含5个数据，看看window能否做到</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>btn_window.setOnClickListener(v -&gt; getObservable()
+                .window(5)
+                .subscribe(integerObservable-&gt;{
+                   integerObservable
+                           .subscribe(integer -&gt; Log.e("window"+integerObservable,integer+""));
+                }));
+                private Observable&lt;Integer&gt; getObservable() {
+        return Observable.from(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    }
+</code></pre>
+</div>
+<p>　　得到以下结果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>windowrx.subjects.UnicastSubject@875d781: 1
+windowrx.subjects.UnicastSubject@875d781: 2
+windowrx.subjects.UnicastSubject@875d781: 3
+windowrx.subjects.UnicastSubject@875d781: 4
+windowrx.subjects.UnicastSubject@875d781: 5
+windowrx.subjects.UnicastSubject@9c4026: 6
+windowrx.subjects.UnicastSubject@9c4026: 7
+windowrx.subjects.UnicastSubject@9c4026: 8
+windowrx.subjects.UnicastSubject@9c4026: 9
+windowrx.subjects.UnicastSubject@9c4026: 10
+</code></pre>
+</div>
+
+<p>　　可以清晰看到确实有两个Observable，rx.subjects.UnicastSubject@875d781和rx.subjects.UnicastSubject@9c4026，每个Observable包含5个数据。也是验证上边的结论。
+　　
+　　<strong>总结</strong>：Transforming操作符，在Rxjava中经常使用，并且功能强大，所以一定要熟练的掌握转换操作符。这样才能灵活使用Rxjava。</p>
+
+<p>　　</p>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                                <h5 style="display: inline;">Tags:</h5>
+                                
+                                    <button class="btn btn-white btn-xs" type="button">Rxjava</button>
+                                
+                                    <button class="btn btn-white btn-xs" type="button">操作符</button>
+                                
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small text-right">
+                                <h5>Stats:</h5>
+                                <div> 
+                                
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- donate -->
+                            
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+    Donate
+</button>
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Donate Me</h4>
+                <small class="font-bold">Thanks for your support!</small>
+            </div>
+            <div class="modal-body">
+                <div class="tabbable" id="tabs-960227">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-405278" data-toggle="tab">Alipay</a>
+                        </li>
+                        <li>
+                            <a href="#panel-874705" data-toggle="tab">Wechat</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-405278">
+                            <div class="text-center">
+                                <img src="/static/img/pay/alipay.png"" height="250" width="250">
+                            </div>    
+                        </div>
+                        <div class="tab-pane" id="panel-874705">
+                            <div class="text-center">
+                                <img src="/static/img/pay/wechat.png"" height="250" width="250">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            
+                            <br>
+                            <!-- share -->
+                            
+                                <h2>Share:</h2>
+
+<div class="bshare-custom">
+	<a title="分享到微信" class="bshare-weixin"></a>
+	<a title="分享到QQ空间" class="bshare-qzone"></a>
+	<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+	<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+</div>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=3388a8e1-75a8-4d5f-9b83-552bfba42fd1&amp;pophcol=1&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                            
+                            <br>
+                            <!-- comment -->
+                            
+
+<!--  start -->
+	<div class="ds-thread" data-thread-key="/java/2016/12/13/rxjava-transforming-observables" data-title="RxJava操作符之Transforming Observables" data-url="http://localhost:4000+/java/2016/12/13/rxjava-transforming-observables.html"></div>
+<!--  end -->
+<!-- JS start () -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"weiweick"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- JS end -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+	
+	    <script src="/static/js/scroll.js"></script>
+
+<!-- Baidu analytics -->
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?5452f458cd7817ced78b5c6daa1a82e4";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+<!-- Google analytics -->
+
+
+
+
+
+<script async src="/static/js/count_page.js"></script>
+
+	
+
+</body>
+</html>

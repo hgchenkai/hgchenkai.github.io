@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html>
+
+	
+	    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <meta content="android跨进程通信" name="description">
+  
+  
+    <meta name="keywords" content="binder">
+  
+  <meta name="author" content="Chuck">
+
+  <title>
+    
+        Chuck|从AIDL看Android跨进程通信
+    
+  </title>
+  <!-- favicon -->
+  <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+  <!-- Third-party CSS -->
+  <link href="/bower_components/normalize-css/normalize.min.css" rel="stylesheet">
+  <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/bower_components/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/static/font-mfizz/font-mfizz.css" rel="stylesheet">
+  <!-- <link href="/bower_components/toastr/toastr.min.css" rel="stylesheet"> -->
+  <link href="/bower_components/jquery.gritter/css/jquery.gritter.css" rel="stylesheet">
+  <link rel="stylesheet" href="/search/css/cb-search.css">
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/style.min.css" rel="stylesheet">
+  <link href="/static/css/pygments.css" rel="stylesheet">
+
+  <!-- Scripts -->
+  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/search/js/bootstrap3-typeahead.min.js"></script>
+
+  <!-- cb-search -->
+  <script src="/search/js/cb-search.js"></script>
+  <script>
+    $(function(){
+        $("pre").css('display','block');
+    });
+  </script>
+  <!-- Mainly scripts -->
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+  <script src="/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+  <!-- Peity -->
+  <script src="/bower_components/peity/jquery.peity.min.js"></script>
+
+  <script src="/bower_components/PACE/pace.min.js"></script>
+  <script src="/bower_components/wow/dist/wow.min.js"></script>
+  <!-- Custom and plugin javascript -->
+  <script src="/static/js/inspinia.js"></script>
+
+  <!-- Rickshaw -->
+  <script src="/bower_components/rickshaw/vendor/d3.v3.js"></script>
+  <script src="/bower_components/rickshaw/rickshaw.min.js"></script>
+
+
+  <!-- jPages -->
+  <script src="/static/js/jPages.js"></script>
+  <script src="/static/js/js.js"></script>
+  <script id="dsq-count-scr" src="//jalpc.disqus.com/count.js" async></script>
+  <script type="text/javascript">
+        $(function(){
+          /* initiate the plugin */
+          $("div.pag-holder").jPages({
+              containerID  : "pag-itemContainer",
+              perPage      : 5,  /* num of items per page */
+              startPage    : 1,
+              startRange   : 1,
+              midRange     : 3,
+              endRange     : 1
+          });
+      });
+  </script>
+
+<!-- GrowingIO -->
+
+
+</head>
+
+	
+
+
+<body id="page-top" class="landing-page">
+
+	
+	    <div class="search-tool"
+      style="position: fixed; top: 0px ; bottom: 0px; left: 0px; right:  0px; opacity: 0.95; background-color: #111111; z-index: 9999; display: none;">
+    <input type="text" class="form-control search-content" id="search-content" style="position: fixed; top: 60px" placeholder="Search Blog">
+
+    <div style="position: fixed; top: 16px; right: 16px; z-index: 9999;">
+        <img src="/search/img/cb-close.png" id="close-btn"/>
+    </div>
+</div>
+
+<div style="position: fixed; right: 16px; bottom: 20px; z-index: 9999;">
+    <img src="/search/img/cb-search.png"  id="search-btn"  title="Double click Ctrl"/>
+</div>
+
+<div class="navbar-wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header page-scroll">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Chuck</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="page-scroll" href="/blog/"></a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/blog/">Blog</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/android/">Android</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/java/">Java</a></li>
+                        
+                            
+                            <li>
+                            
+                            <a class="page-scroll" href="/mac/">Mac</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+</div>
+<div id="inSlider" class="carousel carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <div class="container">
+                <div class="carousel-caption">
+                </div>
+                <div class="carousel-image wow zoomIn">
+                    <!-- <img src="static/img/landing/laptop.png" alt="laptop"/> -->
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+
+        </div>
+        <div class="item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back two"></div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+	
+
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pull-right">
+                    	
+                        	<button class="btn btn-white btn-xs" type="button">Android</button>
+                        
+                    </div>
+                    <div class="text-center article-title">
+                    <span class="text-muted"><i class="fa fa-clock-o"></i> 13 Dec 2016</span>
+                        <h1>
+                            从AIDL看Android跨进程通信
+                        </h1>
+                    </div>
+                    	<p>　　AIDL是Android实现IPC的一种重要的方式，理解它的原理对理解Android进程间通信有很大的帮助。AIDL的定义，已经有很多介绍的文章了，这里就不做详解了。我们直接从实例入手来分析AIDL实现原理。</p>
+
+<p>　　<strong>AIDL的使用</strong></p>
+
+<p>　　首先需要定义AIDL接口IMyService.aidl：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">// IMyService.aidl</span>
+<span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">;</span>
+
+<span class="c1">// Declare any non-default types here with import statements</span>
+
+<span class="kd">interface</span> <span class="nc">IMyService</span> <span class="o">{</span>
+    <span class="cm">/**
+     * Demonstrates some basic types that you can use as parameters
+     * and return values in AIDL.
+     */</span>
+     <span class="n">String</span> <span class="nf">getValue</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>　　定义了getValue（）方法，返回String。我们知道定义好aidl文件后，IDE在编译项目时会自动帮我们生成一个文件IMyService.java文件，稍后会详细介绍。</p>
+
+<p>　　接下来需要定义一个service，这里定义MyService.java
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyService</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"myService"</span><span class="o">,</span><span class="s">"onCreate"</span>    <span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Nullable</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">ims</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">IMyService</span><span class="o">.</span><span class="na">Stub</span> <span class="n">ims</span><span class="o">=</span><span class="k">new</span> <span class="n">IMyService</span><span class="o">.</span><span class="na">Stub</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">RemoteException</span> <span class="o">{</span>
+            <span class="k">return</span>   <span class="s">"hello AIDL"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"myService"</span><span class="o">,</span><span class="s">"onDestroy"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>　　重写onBind方法，返回IMyService.Stub对象ims，IMyService.Stub是定义在IMyService.java中，其实现了IBinder，所以这里可以在OnBinder中作为返回对象。同时在AIDL中定义getValue方法的真正实现，就是在这里。我们仅仅是返回一个”hello AIDL”字符串。</p>
+
+<p>　　为了实现跨进程，我们还需要在AndroidMenifast.xml文件中设置process=”:Remote”,这样service就和client不在同一个进程中了：
+　　</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;service</span>
+            <span class="na">android:name=</span><span class="s">".MyService"</span>
+            <span class="na">android:process=</span><span class="s">":Remote"</span> <span class="nt">/&gt;</span>
+</code></pre>
+</div>
+
+<p>　　最后在定义client，为了方便我们就直接在MainActivity.java实现了：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">AppCompatActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">IMyService</span> <span class="n">ims</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">view</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_bind</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MyService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="n">bindService</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">sc</span><span class="o">,</span> <span class="n">BIND_AUTO_CREATE</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">view</span><span class="o">.</span><span class="na">getId</span><span class="o">()==</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">btn_unbind</span><span class="o">){</span>
+            <span class="n">unbindService</span><span class="o">(</span><span class="n">sc</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">ServiceConnection</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">service</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ims</span> <span class="o">=</span> <span class="n">IMyService</span><span class="o">.</span><span class="na">Stub</span><span class="o">.</span><span class="na">asInterface</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">ims</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"text"</span><span class="o">,</span><span class="n">text</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceDisconnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>　　这和平时bindService使用是一样的，需要一个ServiceConnection实例，将该实例作为bindService参数传入。这样client就可以启动并绑定MyService了。</p>
+
+<p>　　一般我们使用AIDL的基本步骤就是这些，现在我们需要着重分析自动生成的IMyService.java了，如果不知道文件位置，直接在IDE搜索一下就可以了。先把代码贴出来：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/*
+ * This file is auto-generated.  DO NOT MODIFY.
+ * Original file: /Users/chenkai/Android/codeExcise/aidl/AidlDemo/app/src/main/aidl/com/chuck/aidldemo/IMyService.aidl
+ */</span>
+<span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">;</span>
+<span class="c1">// Declare any non-default types here with import statements</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IMyService</span> <span class="kd">extends</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IInterface</span> <span class="o">{</span>
+    <span class="cm">/**
+     * Local-side IPC implementation stub class.
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Stub</span> <span class="kd">extends</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Binder</span> <span class="kd">implements</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="n">DESCRIPTOR</span> <span class="o">=</span> <span class="s">"com.chuck.aidldemo.IMyService"</span><span class="o">;</span>
+
+        <span class="cm">/**
+         * Construct the stub at attach it to the interface.
+         */</span>
+        <span class="kd">public</span> <span class="nf">Stub</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">attachInterface</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">DESCRIPTOR</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="cm">/**
+         * Cast an IBinder object into an com.chuck.aidldemo.IMyService interface,
+         * generating a proxy if needed.
+         */</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span> <span class="nf">asInterface</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">obj</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IInterface</span> <span class="n">iin</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">queryLocalInterface</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(((</span><span class="n">iin</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">iin</span> <span class="k">instanceof</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">)))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="o">((</span><span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">)</span> <span class="n">iin</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">.</span><span class="na">Stub</span><span class="o">.</span><span class="na">Proxy</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="nf">asBinder</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onTransact</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">,</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">data</span><span class="o">,</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">reply</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">RemoteException</span> <span class="o">{</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">case</span> <span class="nl">INTERFACE_TRANSACTION:</span> <span class="o">{</span>
+                    <span class="n">reply</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="k">case</span> <span class="nl">TRANSACTION_getValue:</span> <span class="o">{</span>
+                    <span class="n">data</span><span class="o">.</span><span class="na">enforceInterface</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+                    <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="n">_result</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+                    <span class="n">reply</span><span class="o">.</span><span class="na">writeNoException</span><span class="o">();</span>
+                    <span class="n">reply</span><span class="o">.</span><span class="na">writeString</span><span class="o">(</span><span class="n">_result</span><span class="o">);</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onTransact</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">data</span><span class="o">,</span> <span class="n">reply</span><span class="o">,</span> <span class="n">flags</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Proxy</span> <span class="kd">implements</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span> <span class="o">{</span>
+            <span class="kd">private</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="n">mRemote</span><span class="o">;</span>
+
+            <span class="n">Proxy</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="n">remote</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">mRemote</span> <span class="o">=</span> <span class="n">remote</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="nf">asBinder</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">mRemote</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="kd">public</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="nf">getInterfaceDescriptor</span><span class="o">()</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="n">DESCRIPTOR</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="cm">/**
+             * Demonstrates some basic types that you can use as parameters
+             * and return values in AIDL.
+             */</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">RemoteException</span> <span class="o">{</span>
+                <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">_data</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+                <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">_reply</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+                <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="n">_result</span><span class="o">;</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">_data</span><span class="o">.</span><span class="na">writeInterfaceToken</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+                    <span class="n">mRemote</span><span class="o">.</span><span class="na">transact</span><span class="o">(</span><span class="n">Stub</span><span class="o">.</span><span class="na">TRANSACTION_getValue</span><span class="o">,</span> <span class="n">_data</span><span class="o">,</span> <span class="n">_reply</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                    <span class="n">_reply</span><span class="o">.</span><span class="na">readException</span><span class="o">();</span>
+                    <span class="n">_result</span> <span class="o">=</span> <span class="n">_reply</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                    <span class="n">_reply</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+                    <span class="n">_data</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">_result</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">TRANSACTION_getValue</span> <span class="o">=</span> <span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span><span class="o">.</span><span class="na">FIRST_CALL_TRANSACTION</span> <span class="o">+</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * Demonstrates some basic types that you can use as parameters
+     * and return values in AIDL.
+     */</span>
+    <span class="kd">public</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">RemoteException</span><span class="o">;</span>
+<span class="o">}</span>
+
+</code></pre>
+</div>
+<p>　　代码结构很清晰，先来看一下类图：</p>
+
+<p>　　<img src="http://img.blog.csdn.net/20160723151117802" width="400" height="300" /></p>
+
+<p>　　1.IInterface，我们定义的Binder接口都需要继承自它。</p>
+
+<p>　　2.我们定义的IMyService接口继承自接口IInterface。</p>
+
+<p>　　3.IBinder 远程对象的接口。</p>
+
+<p>　　4.Binder实现了IBinder，Android通过Binder进行IPC</p>
+
+<p>　　5.BinderProxy是在定义在Binder.java中的，也是实现了IBinder接口，这里只要知道它是Binder的代理就可以了。我们Client中拿到的就是这个类的对象，之后会有讲。</p>
+
+<p>　　6.IMyService.Stub继承自Binder并且实现了IMyService。也就是说Stub其实是个Binder。还记得吗？在前文MyService中我们生成了一个Stub的实例ims，Stub的本意是存根，这里的用意就是Service的存根，通过它，我们在Service端就拥有了一个Binder。这样我们就可以通过底层的Binder驱动进行跨进程通信了。</p>
+
+<p>　　7.IMyService.Proxy，顾名思义它是一个代理，主要是实现了IMyService接口，客户端通过它发起远程请求。</p>
+
+<p>　　简单的介绍了涉及到的类，下面来分析一下请求的流程。</p>
+
+<p>　　我们知道，在client bindService（这是一个比较复杂的过程，涉及到AMS，本身也是一个跨进程的通信）之后，如果远程服务，这里是MyService，处理完请求之后，通过一系列复杂的操作，client中的onServiceConnected方法将会回调，为了方便我把前边相关的部分代码放在这：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">ServiceConnection</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceConnection</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceConnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">,</span> <span class="n">IBinder</span> <span class="n">service</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ims</span> <span class="o">=</span> <span class="n">IMyService</span><span class="o">.</span><span class="na">Stub</span><span class="o">.</span><span class="na">asInterface</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">ims</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="s">"text"</span><span class="o">,</span><span class="n">text</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RemoteException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onServiceDisconnected</span><span class="o">(</span><span class="n">ComponentName</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+</div>
+<p>　　第3行当回调onServiceConnected时，会传过来一个IBinder对象service，client就是需要通过它来发起远程请求的，那么service的具体实现到底是Binder还是BinderProxy呢，如果对Binder的机制比较清楚的都会知道其实是BinderProxy的，为了验证这个我们可以调试一下：</p>
+
+<p><img src="http://img.blog.csdn.net/20160723161623506" width="400" /></p>
+
+<p>　　我们得到BinderProxy后会将其传给IMyService.Stub.asInterface(service)，asInterface接受一个IBinder对象作为参数，这里就是刚才说的BinderProxy对象。具体看看asInterface做了什么：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">static</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span> <span class="nf">asInterface</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IBinder</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">obj</span> <span class="o">==</span> <span class="kc">null</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">IInterface</span> <span class="n">iin</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">queryLocalInterface</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(((</span><span class="n">iin</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">iin</span> <span class="k">instanceof</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">)))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="o">((</span><span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">)</span> <span class="n">iin</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">com</span><span class="o">.</span><span class="na">chuck</span><span class="o">.</span><span class="na">aidldemo</span><span class="o">.</span><span class="na">IMyService</span><span class="o">.</span><span class="na">Stub</span><span class="o">.</span><span class="na">Proxy</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="o">}</span>
+</code></pre>
+</div>
+<p>　　看第5行，因为我们设置了MyService的process属性，也就是说他和client是不在同一个进程的，所以obj.queryLocalInterface(DESCRIPTOR)这个方法返回为空，也就是iin为null，那么将会执行第9行代码，对没错new了一个IMyService.Proxy对象。回到前边onServiceConnected方法中第4行ims就是刚刚生成的IMyService.Proxy对象。第6行ims.getValue()方法执行的就是IMyService.Proxy中的getValue方法：
+　　</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="cm">/**
+             * Demonstrates some basic types that you can use as parameters
+             * and return values in AIDL.
+             */</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">RemoteException</span> <span class="o">{</span>
+                <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">_data</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+                <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span> <span class="n">_reply</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Parcel</span><span class="o">.</span><span class="na">obtain</span><span class="o">();</span>
+                <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">String</span> <span class="n">_result</span><span class="o">;</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">_data</span><span class="o">.</span><span class="na">writeInterfaceToken</span><span class="o">(</span><span class="n">DESCRIPTOR</span><span class="o">);</span>
+                    <span class="n">mRemote</span><span class="o">.</span><span class="na">transact</span><span class="o">(</span><span class="n">Stub</span><span class="o">.</span><span class="na">TRANSACTION_getValue</span><span class="o">,</span> <span class="n">_data</span><span class="o">,</span> <span class="n">_reply</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+                    <span class="n">_reply</span><span class="o">.</span><span class="na">readException</span><span class="o">();</span>
+                    <span class="n">_result</span> <span class="o">=</span> <span class="n">_reply</span><span class="o">.</span><span class="na">readString</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                    <span class="n">_reply</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+                    <span class="n">_data</span><span class="o">.</span><span class="na">recycle</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">return</span> <span class="n">_result</span><span class="o">;</span>
+            <span class="o">}</span>
+</code></pre>
+</div>
+<p>　　第7.8行_data,  _reply分别是进行远程调用时的的请求和相应参数。第11行将DESCRIPTOR = “com.chuck.aidldemo.IMyService”作为Token写入 _data.第12行mRemote.transact(Stub.TRANSACTION_getValue, _data, _reply, 0);mRemote是在IMyService.Proxy构造方法中被赋值的，也就是我们在new IMyService.Proxy对象时传进来的BinderProxy对象。所以mRemote.transact(Stub.TRANSACTION_getValue, _data, _reply, 0)的实现应该是在BinderProxy中，这里需要注意一下第一个参数Stub.TRANSACTION_getValue，他是标识需要调用方法的code，在后边会有用到。我们看看他的源码：
+　　</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> public boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+        Binder.checkParcel(this, code, data, "Unreasonably large binder buffer");
+        return transactNative(code, data, reply, flags);
+    }
+</code></pre>
+</div>
+<p>　　最终会调用transactNative（）方法，这是一个native方法，真正的实现是用c实现，他是实现在Android源码对应/frameworks/base/core/jni/android_util_Binder.cpp中的static jboolean android_os_BinderProxy_transact函数，将java层的transact转换成c层transact，有兴趣的可以去研究一下。</p>
+
+<p>　　通过底层Binder的一系列操作，最终会回调到远程Stub的onTransact方法，至于怎么调用的，需要去了解Binder机制。这里只要知道会回调onTransact（）方法就好了。不过还是要注意的是，这里的Stub是在远程服务端的，他和client不是在同一个进程中的。他是在远程服务的Binder线程池中。跟进去看onTransact（）方法做了什么处理：
+　　</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> @Override
+        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+            switch (code) {
+                case INTERFACE_TRANSACTION: {
+                    reply.writeString(DESCRIPTOR);
+                    return true;
+                }
+                case TRANSACTION_getValue: {
+                    data.enforceInterface(DESCRIPTOR);
+                    java.lang.String _result = this.getValue();
+                    reply.writeNoException();
+                    reply.writeString(_result);
+                    return true;
+                }
+            }
+            return super.onTransact(code, data, reply, flags);
+        }
+</code></pre>
+</div>
+<p>　　还记得在transact方法时提到的第一个参数Stub.TRANSACTION_getValue吗，它就是这里onTransact的第一个参数code。所以会执行8-13行代码,第10行java.lang.String _result = this.getValue();很关键这个this是Stub，还记得我们在哪儿有生成它的实例吗？没错就是在MyService中，我们把它作为onBind方法的返回参数。所以这里的this.getValue就是MyService中我们写的那个getValue方法，会返回一个”hello AIDL”的字符串。并把它赋值给_result。在第12行将其写入_reply中。最后在通过Binder的一系列操作，我们将在client中得到这个字符串。</p>
+
+<p>　　总的来说AIDL本身使用比较简单，理解起来也比较简单，但是其内部的Binder机制还是比较复杂的，我们先理解Java层的AIDL对学习Binder也是有帮助的。并且Messager通信是基于AIDL的，理解了AIDL也就理解了Messager。</p>
+
+<p>　　</p>
+
+<p>　　</p>
+
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                                <h5 style="display: inline;">Tags:</h5>
+                                
+                                    <button class="btn btn-white btn-xs" type="button">AOSP</button>
+                                
+                                    <button class="btn btn-white btn-xs" type="button">Frameworks</button>
+                                
+                                    <button class="btn btn-white btn-xs" type="button">Binder</button>
+                                
+                        </div>
+                        <div class="col-md-6">
+                            <div class="small text-right">
+                                <h5>Stats:</h5>
+                                <div> 
+                                
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- donate -->
+                            
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+    Donate
+</button>
+<div class="modal inmodal" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated flipInY">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Donate Me</h4>
+                <small class="font-bold">Thanks for your support!</small>
+            </div>
+            <div class="modal-body">
+                <div class="tabbable" id="tabs-960227">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-405278" data-toggle="tab">Alipay</a>
+                        </li>
+                        <li>
+                            <a href="#panel-874705" data-toggle="tab">Wechat</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-405278">
+                            <div class="text-center">
+                                <img src="/static/img/pay/alipay.png"" height="250" width="250">
+                            </div>    
+                        </div>
+                        <div class="tab-pane" id="panel-874705">
+                            <div class="text-center">
+                                <img src="/static/img/pay/wechat.png"" height="250" width="250">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            
+                            <br>
+                            <!-- share -->
+                            
+                                <h2>Share:</h2>
+
+<div class="bshare-custom">
+	<a title="分享到微信" class="bshare-weixin"></a>
+	<a title="分享到QQ空间" class="bshare-qzone"></a>
+	<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+	<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+</div>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=3388a8e1-75a8-4d5f-9b83-552bfba42fd1&amp;pophcol=1&amp;lang=zh"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+                            
+                            <br>
+                            <!-- comment -->
+                            
+
+<!--  start -->
+	<div class="ds-thread" data-thread-key="/android/2016/12/13/binder-aidl" data-title="从AIDL看Android跨进程通信" data-url="http://localhost:4000+/android/2016/12/13/binder-aidl.html"></div>
+<!--  end -->
+<!-- JS start () -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"weiweick"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- JS end -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+	
+	    <script src="/static/js/scroll.js"></script>
+
+<!-- Baidu analytics -->
+
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?5452f458cd7817ced78b5c6daa1a82e4";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+
+
+<!-- Google analytics -->
+
+
+
+
+
+<script async src="/static/js/count_page.js"></script>
+
+	
+
+</body>
+</html>

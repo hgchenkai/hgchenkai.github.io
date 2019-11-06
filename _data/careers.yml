@@ -1,4 +1,18 @@
 - name:
+    detail: ByteDance
+    i18n: ByteDance
+  desc:
+    detail: In ByteDance, I started working with Android development.
+    i18n: ByteDance_des
+  date:
+    detail: Nov. 2017
+    i18n: ByteDance_date
+  job:
+    detail: Dev Ops
+    i18n: ByteDance_job
+  icon: fa-cloud
+
+- name:
     detail: HiveBox
     i18n: hivebox
   desc:
@@ -19,26 +33,12 @@
     detail: In Netease game, I learned game service system and use Python code for ops.
     i18n: OkWei_des
   date:
-    detail: Jun. 2015
+    detail: Sep. 2014
     i18n: OkWei_date
   job:
     detail: Dev Ops
     i18n: OkWei_job
   icon: fa-gamepad
-
-- name:
-    detail: Client Server International, Inc. U.S.A.
-    i18n: CSII
-  desc:
-    detail: In CSII, I started working with Android development.
-    i18n: CSII_des
-  date:
-    detail: Sep. 2014
-    i18n: CSII_date
-  job:
-    detail: Dev Ops
-    i18n: CSII_job
-  icon: fa-cloud
 
 - name:
     detail: Graduation
